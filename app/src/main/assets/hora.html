@@ -18,7 +18,7 @@
         function validateForm() {
           var x = document.forms["myForm"]["appt"].value;
           if (x == "" || x == null) {
-            alert("A hora não foi definida");
+            Android.showAlert("Aviso", "A hora não foi definida");
             return false;
           }
         }
