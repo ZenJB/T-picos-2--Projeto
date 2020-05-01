@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
@@ -33,5 +34,19 @@ public class WebAppInterface {
                     }
                 });
         alertDialog.show();
+    }
+
+    @JavascriptInterface
+    public String getSetting(String setting){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(
+                "com.topicos.despertador", Context.MODE_PRIVATE);
+        return sharedPreferences.getString(setting, "null");
+    }
+
+    @JavascriptInterface
+    public boolean saveSetting(String setting, String data){
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences(
+                "com.topicos.despertador", Context.MODE_PRIVATE);
+        return sharedPreferences.edit().putString(setting, data).commit();
     }
 }

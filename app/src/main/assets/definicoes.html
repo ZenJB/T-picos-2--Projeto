@@ -35,14 +35,51 @@
             <form class="form-inline">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Hora de Acordar</span>
+                      <span class="input-group-text" id="basic-addon1">Hora de Dormir</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="08:00" aria-label="08:00" aria-describedby="basic-addon1">
+                    <input type="time" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="input_hora_de_dormir">
                   </div>
-                <button type="submit" class="btn btn-primary mb-2">Salvar Alterações</button>
+                <button type="submit" class="btn btn-primary mb-2" id="save_settings">Salvar Alterações</button>
               </form>
         </a>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal_sucess">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_sucess_title"></h5>
+                  </div>
+                  <div class="modal-body" id="modal_sucess_message">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal_sucess_ok_button"></button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //Iniciar a página das definições
+        $("#input_hora_de_dormir").val(Android.getSetting("hora_de_deitar"));
+
+        function showAlert(title, message, ok_button_message){
+            $("#modal_sucess_title").html(title);
+            $("#modal_sucess_message").html(message);
+            $("#modal_sucess_ok_button").html(ok_button_message);
+            $("#modal_sucess").modal('show');
+        }
+        
+        $('#save_settings').on('click', function(event) {
+            event.preventDefault();
+            let input_hora_de_dormir = $("#input_hora_de_dormir").val();
+            if (input_hora_de_dormir == "" || input_hora_de_dormir == null) {
+                showAlert("Erro","A hora de dormir não pode ficar em branco","Voltar");
+            }else{
+                Android.saveSetting("hora_de_deitar", input_hora_de_dormir);
+                showAlert("Definições","Salvo com sucesso!","Fechar");
+            }
+        });
+    </script>
 </body>
 </html>
