@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despertador</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="js/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        function validateForm() {
+          var x = document.forms["myForm"]["appt"].value;
+          if (x == "" || x == null) {
+            alert("A hora não foi definida");
+            return false;
+          }
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">Despertador</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">Voltar</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<form name="myForm" action="" onsubmit="return validateForm()" method="post" required>
+    Definir hora para acordar: <input type="time" id="appt" name="appt" required>
+    <input type="submit" value="Definir Hora">
+</form>
+<!--
+<div class="container">
+
+    <label for="appt">Choose a time to wake-up:</label>
+
+    <input type="time" id="appt" name="appt" required>
+
+    <small>The app will say the recommended hour to sleep</small>
+
+
+</div>
+-->
+
+</body>
+</html>
