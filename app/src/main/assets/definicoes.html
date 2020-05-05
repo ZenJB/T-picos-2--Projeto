@@ -35,9 +35,9 @@
             <form class="form-inline">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">Hora de Dormir</span>
+                      <span class="input-group-text" id="basic-addon1">Hora de Acordar</span>
                     </div>
-                    <input type="time" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="input_hora_de_dormir">
+                    <input type="time" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="input_hora_de_acordar">
                   </div>
                 <button type="submit" class="btn btn-primary mb-2" id="save_settings">Salvar Alterações</button>
               </form>
@@ -72,11 +72,11 @@
         
         $('#save_settings').on('click', function(event) {
             event.preventDefault();
-            let input_hora_de_dormir = $("#input_hora_de_dormir").val();
-            if (input_hora_de_dormir == "" || input_hora_de_dormir == null) {
-                showAlert("Erro","A hora de dormir não pode ficar em branco","Voltar");
+            let input_hora_de_acordar = $("#input_hora_de_acordar").val();
+            if (input_hora_de_acordar == "" || input_hora_de_acordar == null) {
+                showAlert("Erro","A hora de acordar não pode ficar em branco","Voltar");
             }else{
-                Android.saveSetting("hora_de_deitar", input_hora_de_dormir);
+                Android.saveSetting("hora_de_acordar", input_hora_de_acordar);
                 showAlert("Definições","Salvo com sucesso!","Fechar");
             }
         });
