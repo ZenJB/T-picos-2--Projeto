@@ -1,12 +1,16 @@
 package com.zenjb.tpicos_2projeto;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class WebAppInterface {
     Context mContext;
@@ -14,6 +18,18 @@ public class WebAppInterface {
     /** Instantiate the interface and set the context */
     WebAppInterface(Context c) {
         mContext = c;
+        showNotification("Despertador", "Sabia que se deitar tarde faz mal ao seu cerebro?");
+    }
+
+    public void showNotification(String title, String message){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, "lemubitA")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(mContext);
+        notificationManagerCompat.notify(100, builder.build());
     }
 
     /** Show a toast from the web page */

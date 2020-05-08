@@ -42,35 +42,47 @@
           <p class="mb-1" id="descricao"></p>
           <small>Semanal</small>
         </a>
-          <button id="botton_activation" type="button" class="btn btn-primary" onclick="myFunction()">Deactivate</button>
+          <button id="botton_activation" type="button" class="btn btn-primary" onclick="myFunction()">Desactivar</button>
 
 
 <script>
 document.getElementById("demo").innerHTML = Android.getSetting("hora_de_acordar");
 document.getElementById("descricao").innerHTML = Android.getSetting("descricao_do_alarme");
 
-/*
-act();
 
 function act(){
 
-    if(Android.getSetting("activation") != null || Android.getSetting("activation")!=""){
-        document.getElementById("botton_activation").innerHTML = Android.getSetting("activation");
-    }else{
-        document.getElementById("botton_activation").innerHTML = "Deactivate";
+    if(Android.getSetting("activation") == null || Android.getSetting("activation") == "" || Android.getSetting("activation") == undefined)
+      return -1;
+
+    switch(Android.getSetting("activation"))
+    {
+      case "true":
+        document.getElementById("botton_activation").innerHTML = "Desactivar"
+      break;
+      case "false":
+        document.getElementById("botton_activation").innerHTML = "Activar"
+      break;
+      default: break;
     }
+    
+    //    document.getElementById("botton_activation").innerHTML = Android.getSetting("activation");
+    //}else{
+    //    document.getElementById("botton_activation").innerHTML = "Desactivar";
+    //}
 }
-*/
+
+act();
 
 function myFunction() {
   var x = document.getElementById("botton_activation");
-  if (x.innerHTML === "Deactivate") {
-    x.innerHTML = "Activate";
-    Android.saveSetting("activation", botton_activation);
+  if (x.innerHTML === "Desactivar") {
+    x.innerHTML = "Activar";
+    Android.saveSetting("activation", "false");
 
   } else {
-    x.innerHTML = "Deactivate";
-    Android.saveSetting("activation", botton_activation);
+    x.innerHTML = "Desactivar";
+    Android.saveSetting("activation", "true");
 
   }
 }
