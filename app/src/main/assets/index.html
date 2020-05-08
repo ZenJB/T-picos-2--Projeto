@@ -46,10 +46,38 @@
           <p class="mb-1" id="descricao"></p>
           <small>Semanal</small>
         </a>
+          <button id="botton_activation" type="button" class="btn btn-primary" onclick="myFunction()">Deactivate</button>
+
 
 <script>
 document.getElementById("demo").innerHTML = Android.getSetting("hora_de_acordar");
 document.getElementById("descricao").innerHTML = Android.getSetting("descricao_do_alarme");
+
+/*
+act();
+
+function act(){
+
+    if(Android.getSetting("activation") != null || Android.getSetting("activation")!=""){
+        document.getElementById("botton_activation").innerHTML = Android.getSetting("activation");
+    }else{
+        document.getElementById("botton_activation").innerHTML = "Deactivate";
+    }
+}
+*/
+
+function myFunction() {
+  var x = document.getElementById("botton_activation");
+  if (x.innerHTML === "Deactivate") {
+    x.innerHTML = "Activate";
+    Android.saveSetting("activation", botton_activation);
+
+  } else {
+    x.innerHTML = "Deactivate";
+    Android.saveSetting("activation", botton_activation);
+
+  }
+}
 
 
 </script>
