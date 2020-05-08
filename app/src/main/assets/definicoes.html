@@ -38,6 +38,10 @@
                       <span class="input-group-text" id="basic-addon1">Hora de Acordar</span>
                     </div>
                     <input type="time" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="input_hora_de_acordar">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Descrição do Alarme</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" id="input_descricao_do_alarme">
                   </div>
                 <button type="submit" class="btn btn-primary mb-2" id="save_settings">Salvar Alterações</button>
               </form>
@@ -60,8 +64,11 @@
         </div>
     </div>
     <script>
+
+
         //Iniciar a página das definições
-        $("#input_hora_de_dormir").val(Android.getSetting("hora_de_deitar"));
+        $("#input_hora_de_acordar").val(Android.getSetting("hora_de_acordar"));
+        $("#input_descricao_do_alarme").val(Android.getSetting("descricao_do_alarme"));
 
         function showAlert(title, message, ok_button_message){
             $("#modal_sucess_title").html(title);
@@ -69,16 +76,25 @@
             $("#modal_sucess_ok_button").html(ok_button_message);
             $("#modal_sucess").modal('show');
         }
-        
+
+
+
         $('#save_settings').on('click', function(event) {
             event.preventDefault();
             let input_hora_de_acordar = $("#input_hora_de_acordar").val();
+            let input_descricao_do_alarme = $("#input_descricao_do_alarme").val();
             if (input_hora_de_acordar == "" || input_hora_de_acordar == null) {
                 showAlert("Erro","A hora de acordar não pode ficar em branco","Voltar");
-            }else{
-                Android.saveSetting("hora_de_acordar", input_hora_de_acordar);
-                showAlert("Definições","Salvo com sucesso!","Fechar");
-            }
+             }
+            else if( input_descricao_do_alarme == "" ||  input_descricao_do_alarme == null) {
+                    showAlert("Erro","A descrição não pode ficar em branco","Voltar");
+             }
+
+            else{
+                    Android.saveSetting("hora_de_acordar", input_hora_de_acordar);
+                    Android.saveSetting("descricao_do_alarme", input_descricao_do_alarme);
+                    showAlert("Definições","Salvo com sucesso!","Fechar");
+                }
         });
     </script>
 </body>
