@@ -83,6 +83,7 @@ function myFunction() {
   } else {
     x.innerHTML = "Desactivar";
     Android.saveSetting("activation", "true");
+    Android.showNotification("Despertador", "Alarme definido para as "+Android.getSetting("hora_de_acordar"));
 
   }
 }
