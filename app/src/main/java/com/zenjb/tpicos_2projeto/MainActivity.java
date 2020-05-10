@@ -47,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Não está a funcionar
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @JavascriptInterface
-    public void createAlarm(int hora, int minuto){
+    public void createAlarm(String hora, String minuto){
         Log.d("TOPICOS", "Alarme Criado: "+hora+" "+minuto);
 
         /*
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hora);
-        calendar.set(Calendar.MINUTE, minuto);
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hora));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(minuto));
         calendar.set(Calendar.SECOND, 0);
 
 
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     //Não está a funcionar
     @JavascriptInterface
     public void cancelAlarm(){
+        alarmMgr.cancel(alarmIntent);
         Log.d("TOPICOS", "Alarme cancelado");
     }
 
