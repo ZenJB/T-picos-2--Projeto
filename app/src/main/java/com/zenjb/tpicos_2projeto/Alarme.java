@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class Alarme extends BroadcastReceiver {
+    private MediaPlayer player;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,11 +29,17 @@ public class Alarme extends BroadcastReceiver {
         vibrator.vibrate(1000);
         Log.d("TOPICOS", "Ring Ring Alarme!");
 
+        player = MediaPlayer.create(context, R.raw.song);
+        //Tentativa de por o despertador no canal do alarme
+        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+        player.start();
+
         NotificationHelper notificationHelper = new NotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
         notificationHelper.getManager().notify(1, nb.build());
 
         /*
+        //On device boot
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             Log.d("TOPICOS", "Ring Ring Alarme!");
         }*/
