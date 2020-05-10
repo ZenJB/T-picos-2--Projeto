@@ -94,11 +94,9 @@ public class MainActivity extends AppCompatActivity {
         notificationManagerCompat.notify(100, builder.build());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "definicao do alarme";
-            String description = "o alarme foi definido";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("lemubitA", name, importance);
-            channel.setDescription(description);
+            NotificationChannel channel = new NotificationChannel("lemubitA", title, importance);
+            channel.setDescription(message);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
