@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Alarme.class);
         //alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1,intent,0);
+        alarmIntent = PendingIntent.getBroadcast(this,1,intent,0);
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -79,17 +79,22 @@ public class MainActivity extends AppCompatActivity {
         // 20 minutes.
         //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
           //      1000 * 60 * 20, alarmIntent);
-        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pendingIntent);
+        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),alarmIntent);
 
-
-
+        saveSetting("activation", "true");
     }
 
     //Não está a funcionar
     @JavascriptInterface
     public void cancelAlarm(){
-        alarmMgr.cancel(alarmIntent);
-        Log.d("TOPICOS", "Alarme cancelado");
+        try {
+            alarmMgr.cancel(alarmIntent);
+            Log.d("TOPICOS", "Alarme cancelado");
+            saveSetting("activation", "false");
+        }catch(Exception err){
+            Log.d("TOPICOS", err.toString());
+
+        }
     }
 
 
