@@ -23,7 +23,7 @@ public class Alarme extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context,"Está na hora de acordar",Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Time to get up",Toast.LENGTH_SHORT).show();
 
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(1000);
@@ -33,6 +33,11 @@ public class Alarme extends BroadcastReceiver {
         //Tentativa de por o despertador no canal do alarme
         player.setAudioStreamType(AudioManager.STREAM_ALARM);
         player.start();
+
+        NotificationHelper notificationHelper = new NotificationHelper(context);
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
+        notificationHelper.getManager().notify(1, nb.build());
+
         /*
         //On device boot
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
