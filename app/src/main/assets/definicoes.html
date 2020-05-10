@@ -67,8 +67,10 @@
 
 
         //Iniciar a página das definições
-        $("#input_hora_de_acordar").val(Android.getSetting("hora_de_acordar"));
-        $("#input_descricao_do_alarme").val(Android.getSetting("descricao_do_alarme"));
+        if(Android.getSetting("hora_de_acordar") !== "null")
+          $("#input_hora_de_acordar").val(Android.getSetting("hora_de_acordar"));
+        if(Android.getSetting("descricao_do_alarme") !== "null")
+          $("#input_descricao_do_alarme").val(Android.getSetting("descricao_do_alarme"));
 
         function showAlert(title, message, ok_button_message){
             $("#modal_sucess_title").html(title);
