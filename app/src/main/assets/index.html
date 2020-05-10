@@ -46,11 +46,13 @@
 
 
 <script>
-  if(Android.getSetting("hora_de_acordar") === null || Android.getSetting("hora_de_acordar") === undefined || Android.getSetting("hora_de_acordar") === "")
+  if(Android.getSetting("hora_de_acordar") === "null" || Android.getSetting("hora_de_acordar") === undefined || Android.getSetting("hora_de_acordar") === "")
     window.location.replace("definicoes.html");
 
 document.getElementById("demo").innerHTML = Android.getSetting("hora_de_acordar");
-document.getElementById("descricao").innerHTML = Android.getSetting("descricao_do_alarme");
+
+if(Android.getSetting("descricao_do_alarme") !== "null")
+  document.getElementById("descricao").innerHTML = Android.getSetting("descricao_do_alarme");
 
 
 function act(){
