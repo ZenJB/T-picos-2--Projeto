@@ -79,11 +79,12 @@ function myFunction() {
   if (x.innerHTML === "Desactivar") {
     x.innerHTML = "Activar";
     Android.saveSetting("activation", "false");
-
+    Android.cancelAlarm();
   } else {
     x.innerHTML = "Desactivar";
     Android.saveSetting("activation", "true");
-
+    Android.showNotification("Despertador", "Alarme definido para as "+Android.getSetting("hora_de_acordar"));
+    Android.createAlarm(Android.getSetting("hora_de_acordar").split(':')[0], Android.getSetting("hora_de_acordar").split(':')[1]);
   }
 }
 
