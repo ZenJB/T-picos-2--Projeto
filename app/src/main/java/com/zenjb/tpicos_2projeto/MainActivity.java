@@ -43,15 +43,24 @@ public class MainActivity extends AppCompatActivity {
         webView.addJavascriptInterface(this, "Android");
         Log.d("TOPICOS", "App iniciada");
 
-        createAlarm("20","23");
+        //createAlarm("20","23");
 
     }
 
     //Não está a funcionar
     @RequiresApi(api = Build.VERSION_CODES.N)
     @JavascriptInterface
-    public void createAlarm(String hora, String minuto){
+    public void createAlarm(int hora, int minuto){
         Log.d("TOPICOS", "Alarme Criado: "+hora+" "+minuto);
+
+        /*
+        Intent intent = new Intent(this,Alarme.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(),23432,intent,0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,System.currentTimeMillis()+(1000+4),pendingIntent);
+        Toast.makeText(this,"Alarme set in 4 seconds",Toast.LENGTH_LONG).show();
+*/
+
 
         Context context = this.getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
@@ -61,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 11);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.HOUR_OF_DAY, hora);
+        calendar.set(Calendar.MINUTE, minuto);
         calendar.set(Calendar.SECOND, 0);
 
 
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         // 20 minutes.
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000 * 60 * 20, alarmIntent);
+
 
 
 

@@ -10,6 +10,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -19,11 +20,16 @@ public class Alarme extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Toast.makeText(context,"Time to get up",Toast.LENGTH_SHORT).show();
 
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(1000);
+        Log.d("TOPICOS", "Ring Ring Alarme!");
 
+        /*
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             Log.d("TOPICOS", "Ring Ring Alarme!");
-        }
+        }*/
     }
 }
 
