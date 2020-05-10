@@ -26,7 +26,8 @@ public class Alarme extends BroadcastReceiver {
         Toast.makeText(context,"Time to get up",Toast.LENGTH_SHORT).show();
 
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(1000);
+        long[] pattern = {1000, 500, 1000, 500, 1000};
+        vibrator.vibrate(pattern, 0);
         Log.d("TOPICOS", "Ring Ring Alarme!");
 
         Uri alarmSound =
