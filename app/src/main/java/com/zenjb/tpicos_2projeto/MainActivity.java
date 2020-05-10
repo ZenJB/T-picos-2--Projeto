@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         Context context = this.getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Alarme.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-
+        //alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,1,intent,0);
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
 
         // setRepeating() lets you specify a precise custom interval--in this case,
         // 20 minutes.
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * 20, alarmIntent);
-
+        //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+          //      1000 * 60 * 20, alarmIntent);
+        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),pendingIntent);
 
 
 

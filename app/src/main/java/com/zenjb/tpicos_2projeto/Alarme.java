@@ -26,6 +26,10 @@ public class Alarme extends BroadcastReceiver {
         vibrator.vibrate(1000);
         Log.d("TOPICOS", "Ring Ring Alarme!");
 
+        NotificationHelper notificationHelper = new NotificationHelper(context);
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
+        notificationHelper.getManager().notify(1, nb.build());
+
         /*
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             Log.d("TOPICOS", "Ring Ring Alarme!");
