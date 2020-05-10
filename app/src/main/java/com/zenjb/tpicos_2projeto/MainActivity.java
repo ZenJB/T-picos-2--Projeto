@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.MINUTE, 45);
-        calendar.set(Calendar.SECOND, 00);
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.SECOND, 0);
 
 
         // setRepeating() lets you specify a precise custom interval--in this case,

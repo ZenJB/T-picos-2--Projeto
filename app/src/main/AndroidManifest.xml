@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Alarme"></receiver>
-        <!--  android:enabled="false">
-         <!intent-filter>
+        <receiver android:name=".Alarme"
+          android:enabled="false">
+         <intent-filter>
               <action android:name="android.intent.action.BOOT_COMPLETED"></action>
           </intent-filter>
-          -->
+        </receiver>
 
     </application>
 
