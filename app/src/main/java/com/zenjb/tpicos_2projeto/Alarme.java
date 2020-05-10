@@ -29,10 +29,10 @@ public class Alarme extends BroadcastReceiver {
         vibrator.vibrate(1000);
         Log.d("TOPICOS", "Ring Ring Alarme!");
 
-        player = MediaPlayer.create(context, R.raw.song);
-        //Tentativa de por o despertador no canal do alarme
-        player.setAudioStreamType(AudioManager.STREAM_ALARM);
-        player.start();
+        Uri alarmSound =
+                RingtoneManager. getDefaultUri (RingtoneManager. TYPE_ALARM );
+        MediaPlayer mp = MediaPlayer. create (context.getApplicationContext(), alarmSound);
+        mp.start();
 
         NotificationHelper notificationHelper = new NotificationHelper(context);
         NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
