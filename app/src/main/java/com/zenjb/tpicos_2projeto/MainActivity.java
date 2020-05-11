@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -29,6 +30,8 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
+
+    private PendingIntent alarmIntent2;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -65,8 +68,14 @@ public class MainActivity extends AppCompatActivity {
         Context context = this.getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Alarme.class);
+
+        Intent intent2 = new Intent(context,Reminder.class);
+
         //alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmIntent = PendingIntent.getBroadcast(this,1,intent,0);
+
+        alarmIntent2 = PendingIntent.getBroadcast(this,1,intent2,0);
+
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -74,7 +83,24 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(Calendar.MINUTE, Integer.parseInt(minuto));
         calendar.set(Calendar.SECOND, 0);
 
+        Calendar reminder = Calendar.getInstance();
+        reminder.setTimeInMillis(System.currentTimeMillis());
+        if(Integer.parseInt(hora)<10)
+        {
+            reminder.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hora)+12+2);
+        }
+        else{
+            reminder.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hora)-10);
+        }
+        reminder.set(Calendar.MINUTE,Integer.parseInt(minuto));
+        reminder.set(Calendar.SECOND,0);
 
+        alarmMgr.setExact(AlarmManager.RTC_WAKEUP,reminder.getTimeInMillis(),alarmIntent2);
+
+
+        //alarmMgr.setExact(AlarmManager.RTC_WAKEUP,reminder.getTimeInMillis(),alarmIntent);
+
+        //alarmMgr.setExact(AlarmManager.RTC_WAKEUP);
         // setRepeating() lets you specify a precise custom interval--in this case,
         // 20 minutes.
         //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
