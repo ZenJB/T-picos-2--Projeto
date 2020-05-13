@@ -21,7 +21,7 @@ import androidx.core.app.NotificationManagerCompat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Reminder extends BroadcastReceiver {
+public class Reminder2 extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,18 +39,15 @@ public class Reminder extends BroadcastReceiver {
 
 
         String title = "Lembrete";
-
         ArrayList<String> message_list = new ArrayList<String>();
-        message_list.add("Falta menos de uma hora para dormir, se quiser ter um bom desempenho amanhã e dormir melhor deverá alterar o seu ecrã para o modo noite se existir, ou pelo menos deverá baixar o brilho do seu ecrã");
-        message_list.add("Sabia que o uso do telefone uma hora antes de dormir provoca insonias? O recomendável é evitar usar o telefone uma hora antes de dormir.");
-        message_list.add("Está cientificamente comprovado que trabalhar na cama faz com que adormecer seja mais dificil pois confunde o cerebro sobre qual é o lugar para dormir.");
+        message_list.add("Todos os dias começam com uma boa noite de sono, por isso durma bem e descanse muito.");
+        message_list.add("Deverá começar a dormir daqui a 10 minutos. E lembre-se, uma boa noite de sono é um excelente dia!");
         //String message = "Deve reduzir o brilho do seu ecrã";
         Random r = new Random();
         int lowRange = 0;
         int highRange = message_list.size()-1;
         int numero_da_string_escolhida = r.nextInt(highRange -lowRange ) + lowRange;
         String message =  message_list.get(numero_da_string_escolhida);
-
 
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher_background);
 

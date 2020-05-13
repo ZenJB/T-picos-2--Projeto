@@ -40,6 +40,14 @@
              -->
         </receiver>
 
+        <receiver android:name=".Reminder2"
+            android:enabled="true">
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+             </intent-filter>
+             -->
+        </receiver>
+
     </application>
 
 </manifest>

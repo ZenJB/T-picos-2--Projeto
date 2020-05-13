@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this,"Alarme set in 4 seconds",Toast.LENGTH_LONG).show();
 */
 
-
+        /*
         Context context = this.getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, Alarme.class);
@@ -75,22 +75,41 @@ public class MainActivity extends AppCompatActivity {
         alarmIntent = PendingIntent.getBroadcast(this,1,intent,0);
 
         alarmIntent2 = PendingIntent.getBroadcast(this,2,intent2,0);
+        */
 
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         //Obter a hora atual
         int hora_atual = (int)calendar.get(Calendar.HOUR_OF_DAY);
+        int minuto_atual = (int)calendar.get(Calendar.MINUTE);
 
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hora));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minuto));
         calendar.set(Calendar.SECOND, 0);
         if(hora_atual > Integer.parseInt(hora)){
             calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
+        }else
+            if(hora_atual == Integer.parseInt(hora) && minuto_atual > Integer.parseInt(minuto)) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+
+        setBroadcastReceiverTimer(calendar, Alarme.class, 1);
 
         Calendar reminder = Calendar.getInstance();
-        
+        reminder.setTimeInMillis(calendar.getTimeInMillis());
+        reminder.add(Calendar.HOUR_OF_DAY, -10);
+        setBroadcastReceiverTimer(reminder, Reminder.class, 2);
+
+        Calendar final_reminder = Calendar.getInstance();
+        final_reminder.setTimeInMillis(calendar.getTimeInMillis());
+        final_reminder.add(Calendar.MINUTE, -15);
+        final_reminder.add(Calendar.HOUR_OF_DAY, -9);
+        setBroadcastReceiverTimer(final_reminder, Reminder2.class, 3);
+
+        /*
+        Calendar reminder = Calendar.getInstance();
+
         reminder.setTimeInMillis(System.currentTimeMillis());
 
         if(Integer.parseInt(hora)<10)
@@ -102,8 +121,9 @@ public class MainActivity extends AppCompatActivity {
         }
         reminder.set(Calendar.MINUTE,Integer.parseInt(minuto));
         reminder.set(Calendar.SECOND,0);
+        */
 
-        alarmMgr.setExact(AlarmManager.RTC_WAKEUP,reminder.getTimeInMillis(),alarmIntent2);
+        //alarmMgr.setExact(AlarmManager.RTC_WAKEUP,reminder.getTimeInMillis(),alarmIntent2);
 
 
         //alarmMgr.setExact(AlarmManager.RTC_WAKEUP,reminder.getTimeInMillis(),alarmIntent);
@@ -113,17 +133,35 @@ public class MainActivity extends AppCompatActivity {
         // 20 minutes.
         //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
           //      1000 * 60 * 20, alarmIntent);
-        alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),alarmIntent);
+        //alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),alarmIntent);
 
         saveSetting("activation", "true");
+    }
+
+    public void setBroadcastReceiverTimer(Calendar calendar, Class theClass, int id_do_broadcast){
+        Context context = this.getApplicationContext();
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, theClass);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,id_do_broadcast,intent,0);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    public void cancelBroadcastReceiverTimer(Class theClass, int id_do_broadcast){
+        Context context = this.getApplicationContext();
+        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, theClass);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,id_do_broadcast,intent,0);
+
+        alarmManager.cancel(pendingIntent);
     }
 
     //Não está a funcionar
     @JavascriptInterface
     public void cancelAlarm(){
         try {
-            alarmMgr.cancel(alarmIntent);
-            alarmMgr.cancel(alarmIntent2);
+            cancelBroadcastReceiverTimer(Alarme.class,    1);
+            cancelBroadcastReceiverTimer(Reminder.class,  2);
+            cancelBroadcastReceiverTimer(Reminder2.class, 3);
             Log.d("TOPICOS", "Alarme cancelado");
             saveSetting("activation", "false");
         }catch(Exception err){
