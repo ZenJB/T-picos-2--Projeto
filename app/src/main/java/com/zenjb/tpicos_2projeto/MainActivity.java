@@ -79,12 +79,20 @@ public class MainActivity extends AppCompatActivity {
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
+        //Obter a hora atual
+        int hora_atual = (int)calendar.get(Calendar.HOUR_OF_DAY);
+
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(hora));
         calendar.set(Calendar.MINUTE, Integer.parseInt(minuto));
         calendar.set(Calendar.SECOND, 0);
+        if(hora_atual > Integer.parseInt(hora)){
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
 
         Calendar reminder = Calendar.getInstance();
+        
         reminder.setTimeInMillis(System.currentTimeMillis());
+
         if(Integer.parseInt(hora)<10)
         {
             reminder.set(Calendar.HOUR_OF_DAY,Integer.parseInt(hora)+12+2);
