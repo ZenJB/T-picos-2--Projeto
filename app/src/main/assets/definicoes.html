@@ -103,6 +103,7 @@
             else{
                     Android.saveSetting("hora_de_acordar", input_hora_de_acordar);
                     Android.saveSetting("descricao_do_alarme", input_descricao_do_alarme);
+                    Android.cancelAlarm();
                     showAlert("Definições","Salvo com sucesso!","Voltar");
                 }
         });
