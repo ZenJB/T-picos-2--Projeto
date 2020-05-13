@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         //alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmIntent = PendingIntent.getBroadcast(this,1,intent,0);
 
-        alarmIntent2 = PendingIntent.getBroadcast(this,1,intent2,0);
+        alarmIntent2 = PendingIntent.getBroadcast(this,2,intent2,0);
 
         // Set the alarm to start at 8:30 a.m.
         Calendar calendar = Calendar.getInstance();
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void cancelAlarm(){
         try {
             alarmMgr.cancel(alarmIntent);
+            alarmMgr.cancel(alarmIntent2);
             Log.d("TOPICOS", "Alarme cancelado");
             saveSetting("activation", "false");
         }catch(Exception err){
